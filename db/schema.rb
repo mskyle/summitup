@@ -11,64 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130909201223) do
+ActiveRecord::Schema.define(version: 20130910182654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "lists", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "mountains", force: true do |t|
-    t.string   "name"
-    t.integer  "height"
-    t.decimal  "latitude"
-    t.decimal  "longitude"
-    t.text     "notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "mountains_lists", id: false, force: true do |t|
-    t.integer "mountain_id"
-    t.integer "list_id"
-  end
-
-  create_table "trip_mountains", id: false, force: true do |t|
-    t.integer "mountain_id"
-    t.integer "trip_id"
-  end
-
-  create_table "trip_participations", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "trip_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "trips", force: true do |t|
-    t.integer  "user_id"
     t.date     "date"
-    t.string   "trail"
+    t.string   "title"
+    t.text     "note"
+    t.text     "trails"
     t.integer  "book_time"
     t.integer  "actual_time"
+    t.decimal  "distance"
     t.integer  "hike_difficulty"
     t.integer  "hike_awesomeness"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "users", force: true do |t|
-    t.string   "trailname"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "location"
   end
 
 end
