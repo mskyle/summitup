@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 20130910182654) do
   enable_extension "plpgsql"
 
   create_table "trips", force: true do |t|
-    t.date     "date"
-    t.string   "title"
+    t.date     "date",             null: false
+    t.string   "title",            null: false
     t.text     "note"
     t.text     "trails"
     t.integer  "book_time"

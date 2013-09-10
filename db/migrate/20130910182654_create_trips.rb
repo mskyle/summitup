@@ -1,8 +1,8 @@
 class CreateTrips < ActiveRecord::Migration
   def change
     create_table :trips do |t|
-      t.date :date
-      t.string :title
+      t.date :date, :null => false
+      t.string :title, :null => false
       t.text :note
       t.text :trails
       t.integer :book_time
