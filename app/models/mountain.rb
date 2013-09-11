@@ -6,4 +6,10 @@ class Mountain < ActiveRecord::Base
   validates_inclusion_of :latitude, :within => -90..90
   validates_numericality_of :longitude
   validates_inclusion_of :longitude, within: -180..180
+
+  has_many :trip_mountains
+
+  has_many :trips, through: :trip
+
+  # inverse_of :mountain
 end
