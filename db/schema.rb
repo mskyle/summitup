@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(version: 20130911230014) do
   end
 
   create_table "trip_participations", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "trip_id"
+    t.integer  "user_id",    null: false
+    t.integer  "trip_id",    null: false
     t.boolean  "primary"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -56,10 +56,10 @@ ActiveRecord::Schema.define(version: 20130911230014) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "user_name"
+    t.string   "user_name",  null: false
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "email"
+    t.string   "email",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
