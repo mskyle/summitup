@@ -17,10 +17,10 @@ ActiveRecord::Schema.define(version: 20130910195656) do
   enable_extension "plpgsql"
 
   create_table "mountains", force: true do |t|
-    t.string   "name"
-    t.integer  "height"
-    t.decimal  "latitude"
-    t.decimal  "longitude"
+    t.string   "name",       null: false
+    t.integer  "height",     null: false
+    t.decimal  "latitude",   null: false
+    t.decimal  "longitude",  null: false
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
