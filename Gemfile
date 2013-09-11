@@ -38,7 +38,10 @@ group :test, :development do
   gem 'capybara'
   gem 'shoulda'
   gem 'valid_attribute'
+  gem 'pry'
 end
+
+gem 'partial-date'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

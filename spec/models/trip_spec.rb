@@ -1,9 +1,9 @@
 require 'spec_helper'
-
+require 'pry'
 describe Trip do
 
-  it { should have_valid(:date).when(Date.today) }
-  it { should_not have_valid(:date).when('oops', '', nil, 5) }  
+  it { should have_valid(:date).when(20120103) }
+  it { should_not have_valid(:date).when('oops', '', nil, 5, 19000000, 20180912) }  
 
   it { should have_valid(:title).when("This is the title of the hike") }
   it { should_not have_valid(:title).when("", nil) }
