@@ -9,7 +9,7 @@ class Mountain < ActiveRecord::Base
 
   has_many :trip_mountains
 
-  has_many :trips, through: :trip
+  has_many :trips, through: :trip_mountains
 
   # inverse_of :mountain
 end
