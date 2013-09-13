@@ -13,9 +13,9 @@ feature 'a user records a hike', %q{
 
   context "with minimum required attributes" do  
     it "creates a hike record" do
-      visit '/hikes/new'
+      visit '/trips/new'
 
-      fill_in "Date", with: "09-13-2013"
+      #fill_in "Date", with: "09-13-2013"
       fill_in "Title", with: "My hike"
 
       click_on "Record Hike"
