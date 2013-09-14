@@ -1,5 +1,5 @@
-<%= simple_form_for @trip do |f| %>
-  <%= f.input :date %>
-  <%= f.input :title %>
-  <%= f.button :submit, "Record Hike" %>
-<% end %>
+<h1>New hike</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', trips_path %>

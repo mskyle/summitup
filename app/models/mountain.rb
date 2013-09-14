@@ -13,5 +13,7 @@ class Mountain < ActiveRecord::Base
 
   has_many :lists, through: :mountain_lists
 
+  has_many :users, through: :trips
+
   # inverse_of :mountain
 end
