@@ -7,9 +7,72 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-<%= yield %>
+    <!-- Top Navigation -->
+  <nav class="navbar navbar-default" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">SummitUp!</a>
+    </div>
 
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <% if user_signed_in? %>
+        <ul class="nav navbar-nav">
+          <li><a href="/trips/new">Record a Hike</a></li>
+          <li><a href="#">Plan a Hike</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Stuff<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">My Profile</a></li>
+              <li><a href="#">My Hikes</a></li>
+              <li><a href="#">My Mountains</a></li>
+              <li><a href="#">My Friends</a></li>
+              <li><a href="#">My Achievements</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <!-- Would like to make this a link to the profile? Or just get it centered up and down without making it  damn link! -->
+          <li><a href="#">Logged in as <strong><%= current_user.user_name %></strong></a></li>
+          <li><%= link_to 'Edit profile', edit_user_registration_path %></li>
+          <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
+        </ul>
+      <% else %>
+        <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to "Sign up", new_user_registration_path %></li>
+          <li><%= link_to "Login", new_user_session_path %></li>
+        </ul>
+      <% end %> 
+
+
+    </div> <!-- /.navbar-collapse -->
+  </nav>
+
+  <!-- I don't know what this stuff is doing? -->
+  <div id="devise-stuff">
+
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, id: "flash_#{name}" %>
+    <% end %>
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+  
+  </div>
+
+    <%= yield %>
+  <div class="col-md-12 center footer-nav">
+    <a href="#">About</a>
+    <a href="#">Suggestions</a>
+    <!-- <img src="/images/mountain.png"> -->
+    <a href="#">Settings</a>
+    <a href="#">Home</a>
+  </div>
 </body>
 </html>
