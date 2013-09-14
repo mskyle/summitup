@@ -17,7 +17,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">SummitUp!</a>
+      <a class="navbar-brand" href="/">SummitUp!</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -61,18 +61,20 @@
       <%= content_tag :div, msg, id: "flash_#{name}" %>
     <% end %>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+<!--     <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p> -->
   
   </div>
 
     <%= yield %>
   <div class="col-md-12 center footer-nav">
-    <a href="#">About</a>
-    <a href="#">Suggestions</a>
-    <!-- <img src="/images/mountain.png"> -->
-    <a href="#">Settings</a>
-    <a href="#">Home</a>
+    <div class="bottom-links">
+      <a href="#">About</a>
+      <a href="#">Suggestions</a>
+      <!-- <img src="/images/mountain.png"> -->
+      <a href="#">Settings</a>
+      <a href="#">Home</a>
+    </div>
   </div>
 </body>
 </html>

@@ -1,0 +1,31 @@
+//import original twitter bootstrap here
+@import "twitter/bootstrap";
+// @import "variables";
+
+body { 
+  background: url('sbeam-flickr.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.jumbotron {
+  background:rgba(255,255,255,0.6);
+}
+
+.center {
+     float: none;
+     margin-left: auto;
+     margin-right: auto;
+}
+
+.footer-nav {
+  text-align: center;
+}
+
+.bottom-links {
+  a {
+    padding: 0px 30px 0px 30px;
+  }
+} 
