@@ -54,12 +54,32 @@ feature 'a user registers on the site', %q{
     visit "/"
     click_on "Sign up"
     fill_in "Trail name", with: "mskyle"
-    fill_in "Email", with: "mskylehutchinsongmail.com"
+    fill_in "Email", with: "mskylehutchinson@gmail.com"
     fill_in "Password", with: "password"
     fill_in "Re-enter password", with: "passrowd"
     click_on "Let's go!"
 
-    expect(page).to have_content "is invalid"
+    expect(page).to have_content "doesn't match"
+  end
+
+  scenario 'new user attempts to sign up with email that is already in use' do
+    visit "/"
+    click_on "Sign up"
+    fill_in "Trail name", with: "mskyle"
+    fill_in "Email", with: "mskylehutchinson@gmail.com"
+    fill_in "Password", with: "password"
+    fill_in "Re-enter password", with: "password"
+    click_on "Let's go!"
+    click_on "Logout"
+
+    click_on "Sign up"
+    fill_in "Trail name", with: "mskyle"
+    fill_in "Email", with: "mskylehutchinson@gmail.com"
+    fill_in "Password", with: "password"
+    fill_in "Re-enter password", with: "passrowd"
+    click_on "Let's go!"
+    save_and_open_page
+    expect(page).to have_content "been taken"
   end
 
 end
