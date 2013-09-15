@@ -11,9 +11,18 @@ feature 'a user records a hike', %q{
   # * The information is saved so that it can be retrieved later
   # * I can set privacy setting for the hike
 
-  scenario "filling out the form with minimum required attributes" do  
-    visit '/trips/new'
+  let (:user) { FactoryGirl.create(:user) }
 
+  scenario "filling out the form with minimum required attributes" do  
+    #log in user
+    
+    visit "/"
+    click_on "Login"
+    fill_in "Email", with: user.email
+    fill_in "Password", with: user.password
+    click_on "Let's go!"    
+
+    visit '/trips/new'
     #fill_in "Date", with: "09-13-2013"
     fill_in "Title", with: "My hike"
 
@@ -23,6 +32,12 @@ feature 'a user records a hike', %q{
   end
 
   scenario "filling out the form with all available fill-in attributes" do
+    #log in user
+    visit "/"
+    click_on "Login"
+    fill_in "Email", with: user.email
+    fill_in "Password", with: user.password
+    click_on "Let's go!"
 
     visit '/trips/new'
     #fill_in "Date", with: "09-13-2013"
@@ -40,6 +55,13 @@ feature 'a user records a hike', %q{
   end
 
   scenario "filling out the form with insufficient attributes" do
+    #log in user
+    visit "/"
+    click_on "Login"
+    fill_in "Email", with: user.email
+    fill_in "Password", with: user.password
+    click_on "Let's go!"    
+
     visit '/trips/new'
 
     click_on "Record Hike"

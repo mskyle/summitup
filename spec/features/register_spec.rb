@@ -78,7 +78,7 @@ feature 'a user registers on the site', %q{
     fill_in "Password", with: "password"
     fill_in "Re-enter password", with: "passrowd"
     click_on "Let's go!"
-    save_and_open_page
+    
     expect(page).to have_content "been taken"
   end
 
