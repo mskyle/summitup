@@ -9,6 +9,7 @@ feature 'a user records a hike', %q{
   # * I can select a mountain from a list of mountains
   # * I can enter information about a hike of that mountain
   # * The information is saved so that it can be retrieved later
+  # * I am automatically included as a hiker on the hike
   # * I can set privacy setting for the hike
 
   let (:user) { FactoryGirl.create(:user) }
@@ -69,7 +70,35 @@ feature 'a user records a hike', %q{
     expect(page).to have_content "can't be blank"
   end
 
-  scenario "filling out the from with mountains and hikers included" do
+  scenario "filling out the form with one mountain included" do
+    #log in user
+    visit "/"
+    click_on "Login"
+    fill_in "Email", with: user.email
+    fill_in "Password", with: user.password
+    click_on "Let's go!"
+
+    visit '/trips/new'
+    #fill_in "Date", with: "09-13-2013"
+    fill_in "Title", with: "My hike"
+    fill_in "Notes", with: "It was pretty awesome!"
+    select "Mt Washington", from: "Mountain"
+    fill_in "Trails", with: "Ammonusuc Ravine, Jewell"
+    fill_in "Book time", with: "90"
+    fill_in "Actual time", with: "80"
+    fill_in "Distance", with: "4"
+    fill_in "Difficulty", with: "4"
+    fill_in "Awesomeness", with: "4"
+    click_on "Record Hike"
+
+    expect(page).to have_content "Awesome! Your hike has been recorded."
+  end
+
+  scenario "filling out the form with multiple mountains included" do
+
+  end
+
+  scenario "filling out the form with hikers included" do
 
   end
 
