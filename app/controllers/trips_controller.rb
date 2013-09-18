@@ -3,9 +3,12 @@ class TripsController < ApplicationController
     @trip = Trip.new
   end
 
+  def index
+    @trips = Trip.all
+  end
+
   def create
     @trip = Trip.new(trip_params)
-
     respond_to do |format|
       if @trip.save
         format.html { redirect_to @trip, notice: "Awesome! Your hike has been recorded." }
@@ -18,12 +21,19 @@ class TripsController < ApplicationController
   end
 
   def show
+    @trip = Trip.find(params[:id])  
+  end
+
+  def edit
+    @trip = Trip.find(params[:id])
   end
 
   private
 
   def trip_params
-    params.require(:trip).permit(:date, :title, :note, :trails, :book_time, :actual_time, :distance, :hike_difficulty, :hike_awesomeness)
+    params.require(:trip).permit(:date, :title, :note, :trails, 
+      :book_time, :actual_time, :distance, :hike_difficulty, 
+      :hike_awesomeness, mountain_ids:[], user_ids:[])
   end
 
 end
