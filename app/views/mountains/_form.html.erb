@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+
+<%= simple_form_for @mountain do |f| %>
+  <%= f.input :name %>
+  <%= f.input :height %>
+  <%= f.input :latitude %>
+  <%= f.input :longitude %>
+
+  <%= f.button :submit, "Add mountain" %>
+<% end %>
+

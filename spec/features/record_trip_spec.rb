@@ -71,8 +71,11 @@ feature 'a user records a hike', %q{
   end
 
   scenario "filling out the form with one mountain included" do
+    mountain = FactoryGirl.create(:mountain)
+
     #log in user
     visit "/"
+
     click_on "Login"
     fill_in "Email", with: user.email
     fill_in "Password", with: user.password
@@ -82,7 +85,7 @@ feature 'a user records a hike', %q{
     #fill_in "Date", with: "09-13-2013"
     fill_in "Title", with: "My hike"
     fill_in "Notes", with: "It was pretty awesome!"
-    select "Mt Washington", from: "Mountain"
+    select mountain.name, from: "Mountain"
     fill_in "Trails", with: "Ammonusuc Ravine, Jewell"
     fill_in "Book time", with: "90"
     fill_in "Actual time", with: "80"

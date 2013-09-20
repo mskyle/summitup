@@ -8,6 +8,9 @@
   <%= f.input :distance %>
   <%= f.input :hike_difficulty, label: "Difficulty" %>
   <%= f.input :hike_awesomeness, label: "Awesomeness" %>
+  <%= f.association :mountains %>
+  <%= f.association :users, label_method: :user_name %>
+
 
   <%= f.button :submit, "Record Hike" %>
 <% end %>

@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/
 
   has_many :trips, through: :trip_participations
+  has_many :trip_participations, inverse_of: :user
   has_many :mountains, through: :trips
 
 end
