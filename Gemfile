@@ -39,9 +39,11 @@ group :test, :development do
   gem 'shoulda'
   gem 'valid_attribute'
   gem 'launchy'
+  gem 'pry-rails'
+  gem 'timecop'
 end
 
-gem 'simple_form'
+gem 'simple_form', github: 'plataformatec/simple_form'
 
 gem 'devise'
 
