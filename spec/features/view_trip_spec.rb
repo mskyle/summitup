@@ -5,5 +5,5 @@ feature 'a user views a hike', %q{
   } do
   # Acceptance Criteria:
   # * I can see the stored information about the hike
-
+  
 end
