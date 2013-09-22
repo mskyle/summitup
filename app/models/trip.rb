@@ -17,13 +17,18 @@ class Trip < ActiveRecord::Base
   # has_many :trip_mountains, inverse_of: :trip
 
   validates_presence_of :title
+  validates_presence_of :date
   validate :date_within_range, on: :create
 
   def date_within_range
-    if date < Date.today.years_ago(100)
-      errors.add(:date, "can't be that far in the past")
-    elsif date > Date.today
-      errors.add(:date, "can't be in the future")
+    if date.nil?
+      errors.add(:date, "can't be blank")
+    else
+      if date < Date.today.years_ago(100)
+        errors.add(:date, "can't be that far in the past")
+      elsif date > Date.today
+        errors.add(:date, "can't be in the future")
+      end
     end
   end
 

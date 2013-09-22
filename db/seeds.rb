@@ -5,3 +5,22 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'csv'
+
+
+# add mountains from mountains csv
+CSV.foreach("./db/data/mountains.csv", :headers => true) do |row|
+  attributes = {
+    name: row[0],
+    latitude: row[1],
+    longitude: row[2],
+    height: row[3]
+  }
+
+  mountain = Mountain.where(attributes)
+
+  if mountain.first.nil?
+    Mountain.create(attributes)
+  end
+
+end
