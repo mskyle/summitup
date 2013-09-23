@@ -22,7 +22,8 @@ class MountainsController < ApplicationController
 
   def index
     if params[:q]
-      mountains = Mountain.where("name LIKE ? ", "%params[:q]%")
+      query = "%#{params[:q].downcase}%"
+      mountains = Mountain.where("lower(name) LIKE ? ", query).limit(10)
     else
       mountains = Mountain.all
     end
