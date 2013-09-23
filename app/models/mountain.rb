@@ -24,5 +24,13 @@ class Mountain < ActiveRecord::Base
   has_many :users, 
     through: :trips
 
+  def name=(name)
+    set_alpha_name(name)
+    @name = name
+  end
 
+  private
+  def set_alpha_name(name)
+
+  end
 end

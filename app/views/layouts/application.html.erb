@@ -36,6 +36,7 @@
               <li><a href="#">My Achievements</a></li>
             </ul>
           </li>
+          <li></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <!-- Would like to make this a link to the profile? Or just get it centered up and down without making it  damn link! -->
@@ -54,11 +55,15 @@
     </div> <!-- /.navbar-collapse -->
   </nav>
 
+
+
   <!-- I don't know what this stuff is doing? -->
   <div id="devise-stuff">
 
     <% flash.each do |name, msg| %>
-      <%= content_tag :div, msg, id: "flash_#{name}" %>
+      <div class="alert alert-info">
+        <%= content_tag :div, msg, id: "flash_#{name}" %>
+      </div>
     <% end %>
   
   </div>

@@ -23,15 +23,6 @@ feature 'a registered user logs in to the site', %q{
     click_on "Let's go!"
 
     expect(page).to have_content "Logged in as #{user.user_name}"
-  end
-
-  scenario 'registered user signs in from the front page with valid email and password' do
-    visit "/"
-    click_on "Login"
-    fill_in "Email", with: user.email
-    fill_in "Password", with: user.password
-    click_on "Let's go!"
-
     expect(page).to have_no_content "Login"
   end
 

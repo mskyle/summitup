@@ -20,6 +20,14 @@ class Trip < ActiveRecord::Base
   validates_presence_of :date
   validate :date_within_range, on: :create
 
+  def chronic_date
+    # saves real date to db
+  end
+
+  def chronic_date=(stringy_date)
+    # sets string date that comes in from form
+  end
+
   def date_within_range
     if date.nil?
       errors.add(:date, "can't be blank")

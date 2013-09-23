@@ -21,6 +21,13 @@ class MountainsController < ApplicationController
   end
 
   def index
+    if params[:q]
+      mountains = Mountain.where("name LIKE ? ", "%params[:q]%")
+    else
+      mountains = Mountain.all
+    end
+
+    render json: mountains
   end
 
   private
