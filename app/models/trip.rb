@@ -1,3 +1,5 @@
+require 'chronic'
+
 class Trip < ActiveRecord::Base
   
   has_many :trip_participations,
@@ -21,11 +23,11 @@ class Trip < ActiveRecord::Base
   validate :date_within_range, on: :create
 
   def chronic_date
-    # saves real date to db
+    self.date
   end
 
   def chronic_date=(stringy_date)
-    # sets string date that comes in from form
+    self.date = Chronic.parse(stringy_date)
   end
 
   def date_within_range
@@ -33,9 +35,9 @@ class Trip < ActiveRecord::Base
       errors.add(:date, "can't be blank")
     else
       if date < Date.today.years_ago(100)
-        errors.add(:date, "can't be that far in the past")
+        errors.add(:chronic_date, "can't be that far in the past")
       elsif date > Date.today
-        errors.add(:date, "can't be in the future")
+        errors.add(:chronic_date, "can't be in the future")
       end
     end
   end
