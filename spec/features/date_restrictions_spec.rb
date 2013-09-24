@@ -14,7 +14,7 @@ feature "date restrictions", %q{
   let (:trip) { FactoryGirl.build(:trip) }
 
   scenario 'I try to enter a date too far in the past' do 
-
+    prev_trip_count = Trip.count
     login_user(user)
 
     visit new_trip_path
@@ -25,10 +25,11 @@ feature "date restrictions", %q{
     click_on "Record Hike"
 
     expect(page).to have_content "can't be that far in the past"
+    expect(Trip.count).to eql(prev_trip_count)
   end
 
   scenario 'I try to enter a date too far in the past' do 
-
+    prev_trip_count = Trip.count
     login_user(user)
 
     visit new_trip_path
@@ -39,6 +40,7 @@ feature "date restrictions", %q{
     click_on "Record Hike"
 
     expect(page).to have_content "can't be in the future"
+    expect(Trip.count).to eql(prev_trip_count)
   end
 
 end

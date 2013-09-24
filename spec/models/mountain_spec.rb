@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Mountain do
-  it { should have_valid(:name).when("Mt. Washington") }
+  it { should have_valid(:name).when("Mt. Washington", "Kinsman", "East Osceola") }
   it { should_not have_valid(:name).when("", nil) }
 
   it { should have_valid(:height).when(4600) }

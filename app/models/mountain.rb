@@ -24,10 +24,10 @@ class Mountain < ActiveRecord::Base
   has_many :users, 
     through: :trips
 
-  def name=(name)
-    set_alpha_name(name)
-    @name = name
-  end
+  # def name=(name)
+  #   set_alpha_name(name)
+  #   @name = name
+  # end
 
 def alphabetical_name
     if self.name[0..5] == "Mount " || self.name[0..5] == "North " || self.name[0..5] == "South"
@@ -41,7 +41,7 @@ def alphabetical_name
   end
 
   private
-  def set_alpha_name(name)
+  # def set_alpha_name(name)
 
-  end
+  # end
 end
