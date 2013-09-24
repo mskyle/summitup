@@ -36,8 +36,10 @@ class Trip < ActiveRecord::Base
     else
       if date < Date.today.years_ago(100)
         errors.add(:chronic_date, "can't be that far in the past")
+        errors.add(:date, "can't be that far in the past")
       elsif date > Date.today
         errors.add(:chronic_date, "can't be in the future")
+        errors.add(:date, "can't be in the future")
       end
     end
   end
