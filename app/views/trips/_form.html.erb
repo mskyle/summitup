@@ -1,16 +1,16 @@
-<%= simple_form_for @trip do |f| %>
-  <%= f.input :chronic_date, label: "Date" %>
-  <%= f.input :title %>
-  <%= f.input :note, label: "Notes" %>
-  <%= f.input :trails %>
-  <%= f.input :book_time %>
-  <%= f.input :actual_time %>
-  <%= f.input :distance %>
-  <%= f.input :hike_difficulty, label: "Difficulty" %>
-  <%= f.input :hike_awesomeness, label: "Awesomeness" %>
-  <%= f.association :mountains %>
-  <%= f.association :users, label_method: :user_name, label: "Hikers" %>
+  <%= simple_form_for @trip do |f| %>
+    <%= f.input :chronic_date, label: "Date" %>
+    <%= f.input :title %>
+    <%= f.input :note, label: "Notes" %>
+    <%= f.input :trails %>
+    <%= f.input :book_time %>
+    <%= f.input :actual_time %>
+    <%= f.input :distance %>
+    <%= f.input :hike_difficulty, label: "Difficulty" %>
+    <%= f.input :hike_awesomeness, label: "Awesomeness" %>
+    <%= f.association :mountains %>
+    <%= f.association :users, label_method: :user_name, label: "Hikers" %>
 
 
-  <%= f.button :submit, "Record Hike" %>
-<% end %>
+    <%= f.button :submit, "Record Hike" %>
+  <% end %>
