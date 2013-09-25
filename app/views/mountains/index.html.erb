@@ -1,0 +1,33 @@
+<!-- <h1>Mountains - all</h1>
+  <table><tbody>
+<% @mountains.each do |mountain| %>
+
+  <tr>
+    <td><%= link_to "#{mountain.name}", mountain %></td>
+    <td><%= mountain.height %></td>
+  </tr>
+  <% end %>
+  </tbody></table> -->
+
+  <div class="row">
+    <div class="col-md-8 center">
+    <div class="panel panel-default">
+    <!-- Default panel contents -->
+      <div class="panel-heading">Mountains</div>
+
+        <table class="table">
+          <tr>
+            <th>Name</th>
+            <th>Height</th>
+          </tr>
+          <% @mountains.each do |mountain| %>   
+            <tr>
+              <td><%= link_to "#{mountain.name}", mountain %></td>
+              <td><%= mountain.height %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -23,12 +23,14 @@ class MountainsController < ApplicationController
   def index
     if params[:q]
       query = "%#{params[:q].downcase}%"
-      mountains = Mountain.where("lower(name) LIKE ? ", query).limit(10)
+      @mountains = Mountain.where("lower(name) LIKE ? ", query).limit(10)
     else
-      mountains = Mountain.all
+      @mountains = Mountain.all
     end
-
-    render json: mountains
+    respond_to do |format|
+      format.json { render json: @mountains }
+      format.html
+    end
   end
 
   private

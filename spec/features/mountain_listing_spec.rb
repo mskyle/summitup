@@ -11,7 +11,15 @@ feature 'mountain listings', %q{
   # * I can view a list of mountains I have summited
   # * I can view a list of the mountains I have not yet summited
   # * The date of the most recent summit or summit attempt is displayed
+  let (:created_mountains) { FactoryGirl.create_list(:mountain, 25) }
+
+
   scenario 'user looks at a list of all the mountains on the site' do
+    created_mountains
+    visit mountains_path
+
+    expect(page).to have_content("Mountains - all")
+    expect(page).to have_content(created_mountains[0].name)
   end
 
 end
