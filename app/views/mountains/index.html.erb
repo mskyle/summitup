@@ -17,8 +17,8 @@
 
         <table class="table">
           <tr>
-            <th>Name</th>
-            <th>Height</th>
+            <th><%= sortable "name" %></th>
+            <th><%= sortable "height" %></th>
           </tr>
           <% @mountains.each do |mountain| %>   
             <tr>

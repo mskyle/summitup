@@ -1,4 +1,6 @@
 class MountainsController < ApplicationController
+  helper_method :sort_column, :sort_direction
+
   def new
     @mountain = Mountain.new
   end
@@ -25,7 +27,7 @@ class MountainsController < ApplicationController
       query = "%#{params[:q].downcase}%"
       @mountains = Mountain.where("lower(name) LIKE ? ", query).limit(10)
     else
-      @mountains = Mountain.all
+      @mountains = Mountain.order(sort_column + " " + sort_direction)
     end
     respond_to do |format|
       format.json { render json: @mountains }
@@ -37,6 +39,14 @@ class MountainsController < ApplicationController
 
   def mountain_params
     params.require(:mountain).permit(:name, :height, :latitude, :longitude)
+  end
+
+  def sort_column
+    Mountain.column_names.include?(params[:sort]) ? params[:sort] : "height"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
 
 end
