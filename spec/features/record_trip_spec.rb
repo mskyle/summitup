@@ -15,8 +15,7 @@ feature 'a user records a hike', %q{
   let (:user) { FactoryGirl.create(:user) }
   let (:user2) { FactoryGirl.create(:user) }
 
-  scenario "filling out the form with minimum required attributes" do  
-    #log in user
+  scenario "filling out the form with minimum required attributes" do 
     prev_trip_count = Trip.count
 
     visit "/"
