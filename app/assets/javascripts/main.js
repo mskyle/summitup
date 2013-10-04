@@ -23,12 +23,11 @@ $( document ).ready(function() {
   });
 });
 
-function sortBy(sortColumn, sortDirection) {
-  $( "ul.mountains" ).html(getList(sortColumn, sortDirection));
+function sortBy(sortColumn, sortDirection, filterQuery) {
+  $( "ul.mountains" ).html(getList(sortColumn, sortDirection, filterQuery));
 }
 
-function getList(sortColumn, sortDirection) {
+function getList(sortColumn, sortDirection, filterQuery) {
   var query = "/mountains/?sort="+sortColumn+"&direction="+sortDirection;
   var jsonMountains = $.getJSON( query );
-  debugger;
-};
+}

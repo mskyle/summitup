@@ -29,7 +29,7 @@
             Height <a class="sort sort_column desc" id="height" href=" #">(sort by)</a> <a class="units">(meters/feet)</a>
           </div>
           <div class="panel-footer">
-            <div class="btn-group">
+            <div class="btn-group filter heights">
               <button type="button" class="btn btn-default">4000' +</button>
               <button type="button" class="btn btn-default">3000-4000'</button>
               <button type="button" class="btn btn-default">below 3000'</button>
@@ -41,9 +41,15 @@
         <li class="list-group-item">
           <div class="panel panel-default">
             <div class="panel-body">
-              hiked/not hiked
+              Filter by hiked/not hiked
             </div>
-            <div class="panel-footer">Panel footer</div>
+            <div class="panel-footer">
+              <div class="btn-group filter hiked">
+                <button type="button" class="btn btn-default" id="hiked-mountains">Hiked</button>
+                <button type="button" class="btn btn-default" id="unhiked-mountains">Not hiked</button>
+                <button type="button" class="btn btn-default">All</button>
+              </div>
+            </div>
           </div>
         </li>
       <% end %>
@@ -56,32 +62,13 @@
         </div>
       </li>
   </div>
-  <div class="col-md-8">
 
+
+  <div class="col-md-8">
     <ul class="list-group mountains">
       <% @mountains.each do |mountain| %>
         <li class="list-group-item"><%= link_to mountain.name, mountain %> <%= in_feet(mountain.height) %></li>
       <% end %>
     </ul>
-
-
-    <!-- <div class="panel panel-default">
-    <!-- Default panel contents -->
-<!--       <div class="panel-heading">Mountains</div>
-
-        <table class="table">
-          <tr>
-            <th><%= sortable "name" %></th>
-            <th><%= sortable "height" %></th>
-          </tr>
-          <% @mountains.each do |mountain| %>   
-            <tr>
-              <td><%= link_to "#{mountain.name}", mountain %></td>
-              <td><%= mountain.height %></td>
-            </tr>
-          <% end %>
-        </table>
-      </div>
-    </div> --> -->
   </div>
 </div>
