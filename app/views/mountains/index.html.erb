@@ -1,16 +1,73 @@
 <div class="row">
   <div class="col-md-4">
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#">Checklist (Checkboxes for lists?)</a></li>
-      <li><a href="#">State (checkboxes)</a></li>
-      <li><a href="#">Height (4000-foot-plus, 3K-4K, less than 3K - checkboxes)</a></li>
-      <li><a href="#">Hiked/Not Hiked (Checkboxes)</a></li>
-    </ul>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            checklists
+          </div>
+          <div class="panel-footer">  
+            <ul class="list-group">
+              <li class="list-group-item">NE Hundred Highest</li>
+            </ul>
+          </div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <ul class="list-group">
+              <li class="list-group-item">NE Hundred Highest</li>
+            </ul>
+          </div>
+          <div class="panel-footer">Panel footer</div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            Height <a class="sort sort_column desc" id="height" href=" #">(sort by)</a> <a class="units">(meters/feet)</a>
+          </div>
+          <div class="panel-footer">
+            <div class="btn-group">
+              <button type="button" class="btn btn-default">4000' +</button>
+              <button type="button" class="btn btn-default">3000-4000'</button>
+              <button type="button" class="btn btn-default">below 3000'</button>
+            </div>
+          </div>
+        </div>
+      </li>
+      <% if current_user.present? %>
+        <li class="list-group-item">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              hiked/not hiked
+            </div>
+            <div class="panel-footer">Panel footer</div>
+          </div>
+        </li>
+      <% end %>
+      <li class="list-group-item">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            Name <a class="sort sort_column desc" id="name" href=" #">(sort by)</a>
+          </div>
+          <div class="panel-footer">Panel footer</div>
+        </div>
+      </li>
   </div>
   <div class="col-md-8">
-    <div class="panel panel-default">
+
+    <ul class="list-group mountains">
+      <% @mountains.each do |mountain| %>
+        <li class="list-group-item"><%= link_to mountain.name, mountain %> <%= in_feet(mountain.height) %></li>
+      <% end %>
+    </ul>
+
+
+    <!-- <div class="panel panel-default">
     <!-- Default panel contents -->
-      <div class="panel-heading">Mountains</div>
+<!--       <div class="panel-heading">Mountains</div>
 
         <table class="table">
           <tr>
@@ -25,6 +82,6 @@
           <% end %>
         </table>
       </div>
-    </div>
+    </div> --> -->
   </div>
 </div>
