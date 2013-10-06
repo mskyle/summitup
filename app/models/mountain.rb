@@ -29,6 +29,8 @@ class Mountain < ActiveRecord::Base
   #   @name = name
   # end
 
+  scope :hiked_by, -> (user) { where(self.users.include?(user)) }
+
 def alphabetical_name
     if self.name[0..5] == "Mount " || self.name[0..5] == "North " || self.name[0..5] == "South"
       alpha_name = self.name[6..-1] + self.name[0..5]

@@ -5,6 +5,8 @@ class TripMountain < ActiveRecord::Base
   #belongs_to :mountain, inverse_of: :trip_mountains
   #belongs_to :trip, inverse_of: :trip_mountains
 
-  belongs_to :trip
-  belongs_to :mountain 
+  belongs_to :trip,
+    inverse_of: :trip_mountains
+  belongs_to :mountain, 
+    inverse_of: :trip_mountains 
 end

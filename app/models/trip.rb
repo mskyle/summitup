@@ -11,7 +11,7 @@ class Trip < ActiveRecord::Base
 
   # the order here matters!!
   has_many :trip_mountains, 
-    inverse_of: :trip 
+    inverse_of: :trip
   has_many :mountains, 
     through: :trip_mountains, 
       inverse_of: :trips
