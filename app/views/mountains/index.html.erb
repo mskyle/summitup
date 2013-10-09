@@ -7,20 +7,13 @@
             checklists
           </div>
           <div class="panel-footer">  
-            <ul class="list-group">
-              <li class="list-group-item">NE Hundred Highest</li>
-            </ul>
+            <div class="btn-group filter heights">
+              <!-- this is wrong, right? -->   
+              <% List.all.each do |list| %>            
+                <button type="button" class="btn btn-default" id=<%=list.id%>><%=list.title%></button>
+              <% end %>
+            </div>
           </div>
-        </div>
-      </li>
-      <li class="list-group-item">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <ul class="list-group">
-              <li class="list-group-item">NE Hundred Highest</li>
-            </ul>
-          </div>
-          <div class="panel-footer">Panel footer</div>
         </div>
       </li>
       <li class="list-group-item">

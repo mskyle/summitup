@@ -23,7 +23,6 @@ class MountainsController < ApplicationController
   end
 
   def index
-    binding.pry
     if params[:q]
       query = "%#{params[:q].downcase}%"
       @mountains = Mountain.where("lower(name) LIKE ? ", query).limit(10)
@@ -43,6 +42,7 @@ class MountainsController < ApplicationController
       format.json { render json: @mountains }
       format.html
     end
+    @lists = List.all
   end
 
   private
@@ -74,27 +74,5 @@ class MountainsController < ApplicationController
   def list_filter
     List.id.include?(params[:filter]) ? params[:filter] : nil
   end
-
-  def build_query
-    call = Mountain.all
-    sql_query = ""
-    if user_mountain_filter == "hiked"
-      call = user.mountains
-    elsif user_mountain_filter == "unhiked"
-      call = Mountain.all - user.mountains
-    end
-  end
-
-  # What I need to do: 
-  # Run the list through the filters
-  #  * make SQL statement 
-  # Get the list (appropriately filtered)
-  #   Mountain where height is over / under / between (THE EASY PART!)
-  #   user.mountains (ALSO NOT TOO HARD!)
-  #   NOT user.mountains (HARDER!)
-  # Sort the list (by attribute and direction)
-  #   This works!
-  #  
-
 
 end
