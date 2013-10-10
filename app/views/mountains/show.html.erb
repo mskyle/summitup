@@ -6,8 +6,6 @@
 
 <%= @mountain.latitude %>, <%= @mountain.longitude %>
 
-<% binding.pry %>
-
 <% if @current_user_trips.present? %>
   You've hiked this mountain!
   <% @current_user_trips.each do |trip| %>
