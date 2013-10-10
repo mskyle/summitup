@@ -6,15 +6,13 @@
 
 <%= @mountain.latitude %>, <%= @mountain.longitude %>
 
-<% if user_signed_in? %>
-  <% if @mountain.users.include?(current_user) %>
-    You've hiked this mountain!
-    <% current_user.trips.each do |trip| %>
-      <% if trip.mountains.include?(@mountain) %>
-        <%= trip.title %>
-      <% end %>
-    <% end %>
-  <% else %>
-    You haven't hiked this mountain yet!
+<% binding.pry %>
+
+<% if @current_user_trips.present? %>
+  You've hiked this mountain!
+  <% @current_user_trips.each do |trip| %>
+    <%= link_to trip.title, trip_path(trip) %>
   <% end %>
+<% else %>
+  Have you hiked this mountain yet? <%= link_to "Record it!", new_trip_path %>
 <% end %>
