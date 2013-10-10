@@ -51,6 +51,7 @@ gem 'devise'
 gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
                               :github => 'anjlab/bootstrap-rails'
 
+gem 'kaminari'
 
 gem 'chronic'
 # Use ActiveModel has_secure_password
