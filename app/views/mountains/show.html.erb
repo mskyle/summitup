@@ -1,0 +1,20 @@
+<%= @mountain.name %>
+
+<%= @mountain.height %>
+
+<%= @mountain.notes %>
+
+<%= @mountain.latitude %>, <%= @mountain.longitude %>
+
+<% if user_signed_in? %>
+  <% if @mountain.users.include?(current_user) %>
+    You've hiked this mountain!
+    <% current_user.trips.each do |trip| %>
+      <% if trip.mountains.include?(@mountain) %>
+        <%= trip.title %>
+      <% end %>
+    <% end %>
+  <% else %>
+    You haven't hiked this mountain yet!
+  <% end %>
+<% end %>

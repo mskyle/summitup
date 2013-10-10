@@ -2,5 +2,7 @@
 
 FactoryGirl.define do
   factory :trip_mountain do
+    trip_id 1
+    mountain_id 1
   end
 end
