@@ -32,7 +32,7 @@ feature 'a user views a mountain', %Q{
     login_user(user)
 
     visit mountain_path(mountain2)
-    expect(page).to have_content("You haven't hiked this mountain yet!")
+    expect(page).to have_content("hiked this mountain yet")
     expect(page).to have_no_content(user.trips.last.title)
   end
 

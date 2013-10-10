@@ -21,6 +21,9 @@ class MountainsController < ApplicationController
 
   def show
     @mountain = Mountain.find(params[:id])
+    if user_signed_in?
+      @current_user_trips = get_user_mountain_trips(current_user, @mountain)
+    end
   end
 
   def index
@@ -48,6 +51,17 @@ class MountainsController < ApplicationController
 
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+  end
+
+  def get_user_mountain_trips(user, mountain)
+    user_id = user.id
+    mountain_id = mountain.id
+    Trip.find_by_sql("SELECT trips.* FROM trips 
+      INNER JOIN trip_participations ON trips.id = trip_participations.trip_id 
+      WHERE trip_participations.user_id = #{user_id} 
+      INTERSECT SELECT trips.* FROM trips 
+      INNER JOIN trip_mountains ON trips.id = trip_mountains.trip_id 
+      WHERE trip_mountains.mountain_id = #{mountain_id}")
   end
 
 end
