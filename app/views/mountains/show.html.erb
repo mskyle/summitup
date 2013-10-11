@@ -1,16 +1,26 @@
-<%= @mountain.name %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <!-- if statement to display mountain image if mountain image exists goes here once Carrierwave is up -->
+      <%= image_tag('generic-mt.png', width: "100%") %>
 
-<%= @mountain.height %>
+      <%= @mountain.name %>
 
-<%= @mountain.notes %>
+      <%= @mountain.height %> meters
 
-<%= @mountain.latitude %>, <%= @mountain.longitude %>
+      <%= @mountain.notes %>
 
-<% if @current_user_trips.present? %>
-  You've hiked this mountain!
-  <% @current_user_trips.each do |trip| %>
-    <%= link_to trip.title, trip_path(trip) %>
-  <% end %>
-<% else %>
-  Have you hiked this mountain yet? <%= link_to "Record it!", new_trip_path %>
-<% end %>
+      <%= @mountain.latitude %>, <%= @mountain.longitude %>
+    </div>
+    <div class="col-md-8">
+      <% if @current_user_trips.present? %>
+        You've hiked this mountain!
+        <% @current_user_trips.each do |trip| %>
+          <%= link_to trip.title, trip_path(trip) %>
+        <% end %>
+      <% else %>
+        Have you hiked this mountain yet? <%= link_to "Record it!", new_trip_path %>
+      <% end %>
+    </div>
+  </div>
+</div>
