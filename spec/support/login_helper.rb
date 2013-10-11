@@ -8,6 +8,4 @@ module LoginHelper
     click_on "Let's go!"
   end
 
-  
-  
 end
