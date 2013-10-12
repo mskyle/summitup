@@ -18,10 +18,10 @@ feature 'a user records a hike', %q{
   scenario "filling out the form with minimum required attributes" do 
     prev_trip_count = Trip.count
 
-    visit "/"
+    visit root_path
     login_user(user)  
 
-    visit '/trips/new'
+    visit new_trip_path
     fill_in "Date", with: "09-13-2013"
     fill_in "Title", with: "My hike"
 
@@ -31,13 +31,12 @@ feature 'a user records a hike', %q{
   end
 
   scenario "filling out the form with all available fill-in attributes except mountain" do
-    
     prev_trip_count = Trip.count
     prev_trip_mountain_count = TripMountain.count
-    visit "/"
+
     login_user(user)
 
-    visit '/trips/new'
+    visit new_trip_path
     fill_in "Date", with: "09-13-2013"
     fill_in "Title", with: "My hike"
     fill_in "Notes", with: "It was pretty awesome!"
@@ -56,11 +55,10 @@ feature 'a user records a hike', %q{
   end
 
   scenario "filling out the form with insufficient attributes" do
-    visit "/"
     login_user(user) 
 
     prev_trip_count = Trip.count
-    visit '/trips/new'
+    visit new_trip_path
 
     click_on "Record Hike"
 
@@ -70,16 +68,13 @@ feature 'a user records a hike', %q{
   end
 
   scenario "filling out the form with one mountain included" do
-    
     mountain = FactoryGirl.create(:mountain)
     prev_trip_count = Trip.count
     prev_trip_mountain_count = TripMountain.count
-    #log in user
-    visit "/"
 
     login_user(user)
 
-    visit '/trips/new'
+    visit new_trip_path
     fill_in "Date", with: "09-13-2013"
     fill_in "Title", with: "My hike"
     fill_in "Notes", with: "It was pretty awesome!"
@@ -103,12 +98,10 @@ feature 'a user records a hike', %q{
     mountain2 = FactoryGirl.create(:mountain)
     prev_trip_count = Trip.count
     prev_trip_mountain_count = TripMountain.count
-    #log in user
-    visit "/"
 
     login_user(user)
 
-    visit '/trips/new'
+    visit new_trip_path
     fill_in "Date", with: "09-13-2013"
     fill_in "Title", with: "My hike"
     fill_in "Notes", with: "It was pretty awesome!"
@@ -133,11 +126,10 @@ feature 'a user records a hike', %q{
     prev_trip_count = Trip.count
     prev_trip_participation_count = TripParticipation.count
 
-    visit "/"
     login_user(user)  
     user2
 
-    visit '/trips/new'
+    visit new_trip_path
 
     fill_in "Date", with: "09-13-2013"
     fill_in "Title", with: "My hike"

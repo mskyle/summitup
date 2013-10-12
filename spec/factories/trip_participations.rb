@@ -2,8 +2,7 @@
 
 FactoryGirl.define do
   factory :trip_participation do
-    belongs_to ""
-    belongs_to ""
-    primary false
+    user_id 1
+    trip_id 1
   end
 end
