@@ -12,7 +12,7 @@ feature 'signed-in user logs out', %q{
   let (:user) { FactoryGirl.create(:user) }
 
   scenario 'logout option appears when user is logged in' do
-    visit "/"
+    visit root_path
     click_on "Login"
     fill_in "Email", with: user.email
     fill_in "Password", with: user.password
@@ -22,7 +22,7 @@ feature 'signed-in user logs out', %q{
   end
 
   scenario 'user tries to record hike without logging in' do
-    visit "/trips/new"
+    visit new_trip_path
  
     expect(page).to have_no_content "date"
     expect(page).to have_content "sign up or log in"

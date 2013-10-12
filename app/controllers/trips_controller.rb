@@ -4,7 +4,7 @@ class TripsController < ApplicationController
   end
 
   def index
-    @trips = Trip.all
+    @trips = Trip.order(:date).page params[:page]
   end
 
   def create

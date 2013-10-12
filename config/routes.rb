@@ -4,6 +4,9 @@ Summitup::Application.routes.draw do
   resources :trips
 
   resources :mountains
+
+  resources :users
+  
   # get "mountains#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

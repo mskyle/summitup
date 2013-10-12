@@ -16,7 +16,7 @@ feature 'a registered user logs in to the site', %q{
   let (:user) { FactoryGirl.create(:user) }
 
   scenario 'registered user signs in from the front page with valid email and password' do
-    visit "/"
+    visit root_path 
     click_on "Login"
     fill_in "Email", with: user.email
     fill_in "Password", with: user.password
@@ -27,7 +27,7 @@ feature 'a registered user logs in to the site', %q{
   end
 
   scenario 'registered user tries to sign in with wrong password' do
-    visit "/"
+    visit root_path
     click_on "Login"
     fill_in "Email", with: user.email
     fill_in "Password", with: "foo"
@@ -37,7 +37,7 @@ feature 'a registered user logs in to the site', %q{
   end
 
   scenario 'someone tries to sign in with unregistered email' do
-    visit "/"
+    visit root_path
     click_on "Login"
     fill_in "Email", with: "me@you.com"
     fill_in "Password", with: user.password

@@ -151,7 +151,7 @@ full_lists = {
     "Passaconaway",
     "Owls Head",
     "Galehead",
-    "Saddleback Mountain-The Horn",
+    "Saddleback Mountain Horn",
     "Whiteface",
     "Redington",
     "Spaulding",
@@ -318,9 +318,11 @@ full_lists.each do |list_name, mountain_list|
   mountain_list.each do |mountain_name|
     query = "%#{mountain_name}%"
     mountain = Mountain.where("name like ?", query).first
-    mountain_list_entry = MountainList.where(mountain_id: mountain.id, list_id: current_list.id).first
-    if mountain_list_entry.nil?
-      MountainList.create(mountain_id: mountain.id, list_id: current_list.id)
+    if mountain.present?
+      mountain_list_entry = MountainList.where(mountain_id: mountain.id, list_id: current_list.id).first
+      if mountain_list_entry.nil?
+        MountainList.create(mountain_id: mountain.id, list_id: current_list.id)
+      end
     end
   end
 end

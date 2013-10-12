@@ -32,6 +32,8 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+gem 'rails_12factor', group: production
+
 group :test, :development do 
   gem 'rspec-rails'
   gem 'factory_girl_rails'
@@ -50,6 +52,7 @@ gem 'devise'
 
 gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
                               :github => 'anjlab/bootstrap-rails'
+gem 'kaminari'
 
 gem 'chronic'
 
