@@ -33,7 +33,7 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem 'rails_12factor', group: production
+gem 'rails_12factor', group: :production
 
 group :test, :development do 
   gem 'rspec-rails'
@@ -56,10 +56,6 @@ gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
 gem 'kaminari'
 
 gem 'chronic'
-
-group :production do 
-  gem 'rails_12factor'
-end
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
