@@ -15,7 +15,7 @@ feature 'a user registers on the site', %q{
   # * I can make my account public or private
   # * I receive a welcome email
   scenario 'new user signs up from the front page with valid email and username' do
-    visit "/"
+    visit root_path
     click_on "Sign up"
     fill_in "Trail name", with: "mskyle"
     fill_in "Email", with: "mskylehutchinson@gmail.com"
@@ -27,7 +27,7 @@ feature 'a user registers on the site', %q{
   end
 
   scenario 'new user signs up from the front page with invalid email' do
-    visit "/"
+    visit root_path
     click_on "Sign up"
     fill_in "Trail name", with: "mskyle"
     fill_in "Email", with: "mskylehutchinsongmail.com"
@@ -39,7 +39,7 @@ feature 'a user registers on the site', %q{
   end
 
   scenario 'new user signs up from the front page with no user name' do
-    visit "/"
+    visit root_path
     click_on "Sign up"
     fill_in "Trail name", with: ""
     fill_in "Email", with: "mskylehutchinsongmail.com"
@@ -51,7 +51,7 @@ feature 'a user registers on the site', %q{
   end
 
   scenario 'new user signs up from the front page with mismatched passwords' do
-    visit "/"
+    visit root_path
     click_on "Sign up"
     fill_in "Trail name", with: "mskyle"
     fill_in "Email", with: "mskylehutchinson@gmail.com"
@@ -63,7 +63,7 @@ feature 'a user registers on the site', %q{
   end
 
   scenario 'new user attempts to sign up with email that is already in use' do
-    visit "/"
+    visit root_path
     click_on "Sign up"
     fill_in "Trail name", with: "mskyle"
     fill_in "Email", with: "mskylehutchinson@gmail.com"
