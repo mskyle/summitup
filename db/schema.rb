@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20130914175405) do
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "image"
   end
 
   create_table "trip_mountains", force: true do |t|
@@ -66,6 +67,7 @@ ActiveRecord::Schema.define(version: 20130914175405) do
     t.integer  "hike_awesomeness"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "image"
   end
 
   create_table "users", force: true do |t|
@@ -84,6 +86,7 @@ ActiveRecord::Schema.define(version: 20130914175405) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "image"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

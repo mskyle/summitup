@@ -5,6 +5,10 @@ class MountainsController < ApplicationController
     @mountain = Mountain.new
   end
 
+  def edit
+    @mountain = Mountain.find(params[:id])
+  end
+
   def create
     @mountain = Mountain.new(mountain_params)
 
@@ -52,7 +56,7 @@ class MountainsController < ApplicationController
   private
 
   def mountain_params
-    params.require(:mountain).permit(:name, :height, :latitude, :longitude)
+    params.require(:mountain).permit(:name, :height, :latitude, :longitude, :image)
   end
 
   def sort_column

@@ -57,6 +57,10 @@ gem 'kaminari'
 
 gem 'chronic'
 
+gem 'carrierwave'
+gem 'rmagick'
+gem 'fog'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
