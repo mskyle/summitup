@@ -9,6 +9,15 @@ class MountainsController < ApplicationController
     @mountain = Mountain.find(params[:id])
   end
 
+  def update
+    @mountain = Mountain.find(params[:id])
+    if @mountain.update(mountain_params)
+      redirect_to @mountain, notice: "awesome! mountain has been updated"
+    else
+      render action: 'edit'
+    end
+  end
+
   def create
     @mountain = Mountain.new(mountain_params)
     if @mountain.save
