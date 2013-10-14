@@ -1,2 +1,15 @@
-<li><%= @user.user_name %></li>
-<li><%= @user.first_name %> <%= @user.last_name %></li>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <% if @user.image.present? %>
+        <%= image_tag(@user.image, width: "100%") %>
+      <% end %>
+    </div>
+    <div class="col-md-8">
+      <ul>
+        <li><%= @user.user_name %></li>
+        <li><%= @user.first_name %> <%= @user.last_name %></li>
+      </ul>
+    </div>
+  </div>
+</div>

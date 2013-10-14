@@ -8,6 +8,7 @@ class TripsController < ApplicationController
   end
 
   def create
+    trip_params[:user_ids] << current_user.id
     @trip = Trip.new(trip_params)
     if @trip.save
       redirect_to @trip, notice: "Awesome! Your hike has been recorded." 
@@ -29,7 +30,7 @@ class TripsController < ApplicationController
   def trip_params
     params.require(:trip).permit(:date, :title, :note, :trails, 
       :book_time, :actual_time, :distance, :hike_difficulty, 
-      :hike_awesomeness, :chronic_date, mountain_ids:[], user_ids:[])
+      :hike_awesomeness, :chronic_date, :image, mountain_ids:[], user_ids:[])
   end
 
 end
