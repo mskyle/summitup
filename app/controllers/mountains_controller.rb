@@ -11,15 +11,10 @@ class MountainsController < ApplicationController
 
   def create
     @mountain = Mountain.new(mountain_params)
-
-    respond_to do |format|
-      if @mountain.save
-        format.html { redirect_to @mountain, notice: "awesome! you've added a mountain." }
-        format.json { render action: 'show', status: :created, location: @mountain }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @mountain.errors, status: :unprocessable_entity }
-      end
+    if @mountain.save
+      redirect_to @mountain, notice: "awesome! you've added a mountain."
+    else
+      render action: 'new'
     end
   end
 
@@ -33,18 +28,7 @@ class MountainsController < ApplicationController
   def index
     if params[:q]
       query = "%#{params[:q].downcase}%"
-      @mountains = Mountain.where("lower(name) LIKE ? ", query).limit(10)
-    else
-      mountains = Mountain.all
-      if user_signed_in?
-        if user_mountain_filter == "hiked"
-          mountains = current_user.mountains
-          binding.pry
-        elsif user_mountain_filter == "unhiked"
-          mountains = Mountain.all - current_user.mountains
-        end
-      end
-      @mountains = mountains.order(sort_column + " " + sort_direction) # Mountain.order(sort_column + " " + sort_direction)
+      @mountains = Mountain.order(sort_column + " " + sort_direction)
     end
     respond_to do |format|
       format.json { render json: @mountains }

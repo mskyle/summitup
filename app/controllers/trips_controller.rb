@@ -9,15 +9,10 @@ class TripsController < ApplicationController
 
   def create
     @trip = Trip.new(trip_params)
-
-    respond_to do |format|
-      if @trip.save
-        format.html { redirect_to @trip, notice: "Awesome! Your hike has been recorded." }
-        format.json { render action: 'show', status: :created, location: @trip }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @trip.errors, status: :unprocessable_entity }
-      end
+    if @trip.save
+      redirect_to @trip, notice: "Awesome! Your hike has been recorded." }
+    else
+      render action: 'new'
     end
   end
 
