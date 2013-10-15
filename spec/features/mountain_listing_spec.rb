@@ -18,7 +18,6 @@ feature 'mountain listings', %q{
     created_mountains
     visit mountains_path
 
-    expect(page).to have_content("Mountains")
     expect(page).to have_content(created_mountains[0].name)
     expect(page).to have_content(created_mountains[-1].name)
   end
@@ -40,7 +39,7 @@ feature 'mountain listings', %q{
     hundred_footer = FactoryGirl.create(:mountain, height: 100)
 
     visit mountains_path
-    click_on "Height"
+    click_on("height")
 
     (one_footer.name).should appear_before(hundred_footer.name)
     (hundred_footer.name).should appear_before(thousand_footer.name)
@@ -52,8 +51,7 @@ feature 'mountain listings', %q{
     c_mountain = FactoryGirl.create(:mountain, name: "Cannon")
 
     visit mountains_path
-    click_on "Name"
-    click_on "Name"
+    click_on("name")
 
     (b_mountain.name).should appear_before(a_mountain.name)
     (c_mountain.name).should appear_before(b_mountain.name)
@@ -66,7 +64,10 @@ feature 'mountain listings', %q{
 
 
     visit mountains_path
-    click_on "Name"
+    within_fieldset do
+      click_on("name")
+      click_on("name")
+    end
 
     (a_mountain.name).should appear_before(b_mountain.name)
     (b_mountain.name).should appear_before(c_mountain.name)

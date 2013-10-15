@@ -53,6 +53,13 @@ feature 'a user views a mountain', %Q{
     expect(page).to have_no_content(trip2.title)
   end
 
+  scenario 'there is a link to the mountain edit page' do
+    login_user(user)
+    visit mountain_path(mountain)
+    click_on "Edit this mountain"
+    expect(page).to have_content("Edit mountain", "Image")
+  end
+
 end
 
 

@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
@@ -32,7 +33,7 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem 'rails_12factor', group: production
+gem 'rails_12factor', group: :production
 
 group :test, :development do 
   gem 'rspec-rails'
@@ -56,10 +57,9 @@ gem 'kaminari'
 
 gem 'chronic'
 
-group :production, :staging do 
-  gem 'pg'
-  gem 'rails_12factor'
-end
+gem 'carrierwave'
+gem 'rmagick'
+gem 'fog'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

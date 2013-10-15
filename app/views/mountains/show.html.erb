@@ -1,9 +1,11 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4">
-      <!-- if statement to display mountain image if mountain image exists goes here once Carrierwave is up -->
-      <%= image_tag('generic-mt.png', width: "100%") %>
-
+      <% if @mountain.image.present? %>
+        <%= image_tag(@mountain.image, width: "100%") %>
+      <% else %>
+        <%= image_tag('generic-mt.png', width: "100%") %>
+      <% end %>
       <%= @mountain.name %>
 
       <%= @mountain.height %> meters
@@ -20,6 +22,9 @@
         <% end %>
       <% else %>
         Have you hiked this mountain yet? <%= link_to "Record it!", new_trip_path %>
+      <% end %>
+      <% if user_signed_in? %>
+        <%= link_to "Edit this mountain", edit_mountain_path(@mountain) %>
       <% end %>
     </div>
   </div>

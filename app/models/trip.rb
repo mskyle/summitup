@@ -16,6 +16,8 @@ class Trip < ActiveRecord::Base
     through: :trip_mountains, 
       inverse_of: :trips
 
+  mount_uploader :image, ImageUploader
+
   validates_presence_of :title
   validates_presence_of :date
   validate :date_within_range, on: :create

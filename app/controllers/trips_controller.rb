@@ -8,16 +8,13 @@ class TripsController < ApplicationController
   end
 
   def create
+    trip_params[:user_ids] << current_user.id.to_s
+    trip_params[:user_ids].uniq!
     @trip = Trip.new(trip_params)
-
-    respond_to do |format|
-      if @trip.save
-        format.html { redirect_to @trip, notice: "Awesome! Your hike has been recorded." }
-        format.json { render action: 'show', status: :created, location: @trip }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @trip.errors, status: :unprocessable_entity }
-      end
+    if @trip.save
+      redirect_to @trip, notice: "Awesome! Your hike has been recorded." 
+    else
+      render action: 'new'
     end
   end
 
@@ -34,7 +31,7 @@ class TripsController < ApplicationController
   def trip_params
     params.require(:trip).permit(:date, :title, :note, :trails, 
       :book_time, :actual_time, :distance, :hike_difficulty, 
-      :hike_awesomeness, :chronic_date, mountain_ids:[], user_ids:[])
+      :hike_awesomeness, :chronic_date, :image, mountain_ids:[], user_ids:[])
   end
 
 end
