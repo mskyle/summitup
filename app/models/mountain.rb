@@ -7,6 +7,8 @@ class Mountain < ActiveRecord::Base
   validates_numericality_of :longitude
   validates_inclusion_of :longitude, within: -180..180
 
+  mount_uploader :image, ImageUploader
+  
   #has_many :trip_mountains, inverse_of: :mountain
 
   #has_many :trips, through: :trip_mountains, inverse_of: :mountains
