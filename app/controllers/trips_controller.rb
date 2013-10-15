@@ -8,7 +8,8 @@ class TripsController < ApplicationController
   end
 
   def create
-    trip_params[:user_ids] << current_user.id
+    trip_params[:user_ids] << current_user.id.to_s
+    trip_params[:user_ids].uniq!
     @trip = Trip.new(trip_params)
     if @trip.save
       redirect_to @trip, notice: "Awesome! Your hike has been recorded." 

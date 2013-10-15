@@ -37,8 +37,8 @@ class MountainsController < ApplicationController
   def index
     if params[:q]
       query = "%#{params[:q].downcase}%"
-      @mountains = Mountain.order(sort_column + " " + sort_direction)
     end
+    @mountains = Mountain.order(sort_column + " " + sort_direction)
     respond_to do |format|
       format.json { render json: @mountains }
       format.html
