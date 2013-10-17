@@ -38,12 +38,12 @@ class MountainsController < ApplicationController
     if params[:q]
       query = "%#{params[:q].downcase}%"
     end
-    @mountains = Mountain.order(sort_column + " " + sort_direction)
+    @mountains = Mountain.find_by_sql(build_query)
+    @lists = List.all    
     respond_to do |format|
       format.json { render json: @mountains }
       format.html
     end
-    @lists = List.all
   end
 
   private
@@ -56,30 +56,83 @@ class MountainsController < ApplicationController
     Mountain.column_names.include?(params[:sort]) ? params[:sort] : "height"
   end
 
+  def get_all_filters
+    params[:filter].present? ? params[:filter].split(" ") : []
+  end
+
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
 
-  def user_mountain_filter
-    (user_signed_in? && %w[hiked unhiked].include?(params[:filter])) ? params[:filter] : nil
+  def build_query
+    filters = [user_mountain_filter, height_filter, list_filter].delete_if { |filter| not filter.present? }
+    if filters.length > 0 
+      filter = "WHERE " + filters.join(" INTERSECT ")
+    else 
+      filter = ""
+    end
+    order = "ORDER BY #{sort_column} #{sort_direction}"
+    "SELECT * FROM mountains "+ filter + " " + order
   end
 
-  def get_all_filters
-    params[:filter].split(" ")
+  def user_mountain_filter
+    if get_all_filters.include? "hiked"
+      hiked_sql
+    elsif get_all_filters.include? "unhiked"
+      unhiked_sql
+    else
+      ""
+    end
   end
 
   def height_filter
-    %w[four-k three-four-k below-three-k].include(params[:filter]) ? params[:filter] : nil
+    height_hash = {
+      "four-k" => "height > 4000",
+      "three-four-k" => "(height > 3000 AND height < 4000)",
+      "below-three-k" => "height < 3000"
+    }
+
+    height_query_array = []
+
+    get_all_filters.each do |filter|
+      if height_hash.has_key? filter
+        height_query_array << height_hash[filter]
+      end
+    end
+    height_query_string = height_query_array.join(" OR ")
+    "#{height_query_string}" if height_query_string.present?
+  end
+
+  def hiked_sql 
+    return "SELECT mountains.* FROM mountains INNER JOIN trip_mountains ON mountains.id = trip_mountains.mountain_id 
+    INNER JOIN trips ON trip_mountains.trip_id = trips.id 
+    INNER JOIN trip_participations ON trips.id = trip_participations.trip_id 
+    WHERE trip_participations.user_id = #{current_user.id}"
+  end
+
+  def unhiked_sql 
+    return "SELECT mountains.* FROM mountains EXCEPT SELECT mountains.* FROM mountains 
+    INNER JOIN trip_mountains ON mountains.id = trip_mountains.mountain_id 
+    INNER JOIN trips ON trip_mountains.trip_id = trips.id
+    INNER JOIN trip_participations ON trips.id = trip_participations.trip_id 
+    WHERE trip_participations.user_id = #{current_user.id}"
   end
 
   def list_filter
-    List.id.include?(params[:filter]) ? params[:filter] : nil
+    list_query_array = []
+    get_all_filters.each do |list_id|
+      if List.ids.include?(list_id)
+        query_array << "SELECT mountains.* FROM mountains INNER JOIN mountain_lists ON mountains.id = mountain_lists.mountain_id 
+        WHERE mountain_lists.list_id = #{list_id}"
+      end
+    end
+    list_query_array.join(" OR ")
   end
 
   def get_user_mountain_trips(user, mountain)
     user_id = user.id
     mountain_id = mountain.id
-    Trip.find_by_sql("SELECT trips.* FROM trips 
+    Trip.find_by_sql("SELECT * FROM trips 
       INNER JOIN trip_participations ON trips.id = trip_participations.trip_id 
       WHERE trip_participations.user_id = #{user_id} 
       INTERSECT SELECT trips.* FROM trips 
