@@ -1,9 +1,11 @@
-<h1>New mountain</h1>
+<div class="form-container">
+  <h1>New mountain</h1>
 
-<!-- Really this should be for admin only, make sure to change this once you have admin set up -->
-<% if user_signed_in? %> 
-  <%= render 'form' %>
-  <%= link_to 'Back', mountains_path %>
-<% else %>
-  <p>Only adminstrators can create new mountains.</p>
-<% end %>
+  <!-- Really this should be for admin only, make sure to change this once you have admin set up -->
+  <% if user_signed_in? %> 
+    <%= render 'form' %>
+    <%= link_to 'Back', mountains_path %>
+  <% else %>
+    <p>Only adminstrators can create new mountains.</p>
+  <% end %>
+</div>
