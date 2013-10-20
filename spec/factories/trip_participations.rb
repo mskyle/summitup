@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :trip_participation do
-    user_id 1
-    trip_id 1
+    user
+    trip
   end
 end
