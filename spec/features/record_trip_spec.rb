@@ -12,8 +12,10 @@ feature 'a user records a hike', %q{
   # * I am automatically included as a hiker on the hike
   # * I can set privacy setting for the hike
 
-  let (:user) { FactoryGirl.create(:user) }
-  let (:user2) { FactoryGirl.create(:user) }
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:user2) { FactoryGirl.create(:user) }
+  let!(:trip) { FactoryGirl.create(:trip) }
+  let!(:trip_participation) { FactoryGirl.create(:trip_participation, trip: trip, user: user) }
 
   scenario "filling out the form with minimum required attributes" do 
     prev_trip_count = Trip.count
@@ -141,6 +143,15 @@ feature 'a user records a hike', %q{
     expect(Trip.count).to eql(prev_trip_count + 1)
     expect(TripParticipation.count).to eql(prev_trip_participation_count + 2)
     expect(page).to have_content "Awesome! Your hike has been recorded."
+  end
+
+  scenario "updating hike" do
+    login_user(user)
+    visit edit_trip_path(trip)
+    fill_in "Title", with: "New title"
+    click_on "Record Hike"
+
+    expect(page).to have_content "New title"
   end
 
 end
