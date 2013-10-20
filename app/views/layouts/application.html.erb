@@ -25,22 +25,19 @@
       <% if user_signed_in? %>
         <ul class="nav navbar-nav">
           <li><a href="/trips/new">Record a Hike</a></li>
-          <li><a href="#">Plan a Hike</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Stuff<b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="#">My Profile</a></li>
-              <li><a href="#">My Hikes</a></li>
-              <li><a href="#">My Mountains</a></li>
-              <li><a href="#">My Friends</a></li>
-              <li><a href="#">My Achievements</a></li>
+              <li><%= link_to 'My Profile', user_path(current_user.id) %></li>
+              <li><%= link_to 'My Hikes', trips_path %></li>
+              <li><%= link_to 'My Mountains', mountains_path %></li>
             </ul>
           </li>
           <li></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <!-- Would like to make this a link to the profile? Or just get it centered up and down without making it  damn link! -->
-          <li><a href="#">Logged in as <strong><%= current_user.user_name %></strong></a></li>
+          <li><%= link_to "Logged in as #{current_user.user_name}", user_path(current_user.id) %></li>
           <li><%= link_to 'Edit profile', edit_user_registration_path %></li>
           <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
         </ul>
@@ -68,14 +65,16 @@
   
   </div>
 
-    <%= yield %>
-  <div class="col-md-12 center footer-nav">
-    <div class="bottom-links">
-      <a href="#">About</a>
-      <a href="#">Suggestions</a>
-      <!-- <img src="/images/mountain.png"> -->
-      <a href="#">Settings</a>
-      <a href="#">Home</a>
+  <%= yield %>
+  <div class="row">
+    <div class="col-md-12 center footer-nav">
+      <div class="bottom-links">
+        <a href="#">About</a>
+        <a href="#">Suggestions</a>
+        <!-- <img src="/images/mountain.png"> -->
+        <a href="#">Settings</a>
+        <a href="#">Home</a>
+      </div>
     </div>
   </div>
 </body>
