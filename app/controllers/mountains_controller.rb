@@ -30,7 +30,7 @@ class MountainsController < ApplicationController
   def show
     @mountain = Mountain.find(params[:id])
     if user_signed_in?
-      @current_user_trips = get_user_mountain_trips(current_user, @mountain)
+      @current_user_trips = @mountain.get_user_mountain_trips(current_user)
     end
   end
 
@@ -38,7 +38,7 @@ class MountainsController < ApplicationController
     if params[:q]
       query = "%#{params[:q].downcase}%"
     end
-    @mountains = Mountain.find_by_sql(build_query)
+    @mountains = Mountain.get_mountains(get_all_filters, current_user, sort_column, sort_direction)
     @lists = List.all    
     respond_to do |format|
       format.json { render json: @mountains }

@@ -24,7 +24,12 @@ class Mountain < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
 
-  def self.filter(filter_hash, user)
+  def self.get_mountains(filter_array, user, sort_column, sort_direction)
+    filter_hash = self.generate_filter_hash(filter_array)
+    self.filter(filter_hash, user, sort_column, sort_direction)
+  end
+
+  def self.filter(filter_hash, user = nil, sort_column = "height", sort_direction = "desc")
     query_start = "SELECT mountains.* FROM mountains "
     query = query_start
 
@@ -54,7 +59,38 @@ class Mountain < ActiveRecord::Base
         query += " WHERE " + height_query
       end
     end
+    query += " ORDER BY #{sort_column} #{sort_direction}"
     Mountain.find_by_sql(query)
+  end
+
+  def self.generate_filter_hash(filter_array)
+    filter_hash = { height: { top: 22000, floor: 0} }
+    if filter_array.include?("hiked") 
+      filter_hash[:hiked] = :hiked
+    end
+    if filter_array.include?("unhiked")
+      filter_hash[:hiked] = :unhiked
+      if filter_array.include?("hiked")
+        filter_hash[:hiked] = nil 
+      end
+    end
+    if filter_array.include?("four-k")
+      filter_hash[:height][:floor] = 1219
+    end
+    if filter_array.include?("three-four-k")
+      filter_hash[:height][:floor] = 914
+    end
+    if filter_array.include?("three-k")
+      filter_hash[:height][:top] = 914
+    end
+    if filter_array.include?("three-four-k")
+      filter_hash[:height][:top] = 1219
+    end
+    if filter_array.include?("four-k")
+      filter_hash[:height][:top] = 22000
+    end
+    filter_array.each { |filter| filter_hash[:list] = filter if filter.is_a?(Integer) }
+    filter_hash
   end
 
   def height_in_feet
@@ -70,6 +106,17 @@ class Mountain < ActiveRecord::Base
       alpha_name = self.name
     end
     alpha_name
+  end
+
+  def get_user_mountain_trips(user)
+    user_id = user.id
+    mountain_id = self.id
+    Trip.find_by_sql("SELECT trips.* FROM trips 
+      INNER JOIN trip_participations ON trips.id = trip_participations.trip_id 
+      WHERE trip_participations.user_id = #{user_id} 
+      INTERSECT SELECT trips.* FROM trips 
+      INNER JOIN trip_mountains ON trips.id = trip_mountains.trip_id 
+      WHERE trip_mountains.mountain_id = #{mountain_id}")
   end
 
 end

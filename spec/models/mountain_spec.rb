@@ -69,6 +69,14 @@ describe Mountain do
     expect(Mountain.filter(filter_hash, user).include?(mountain3)).to eql(false)
   end
 
+  it 'creates a hash of filters from a list of filter names' do
+    expect(Mountain.generate_filter_hash(["hiked", "four-k", "three-four-k", 1])).to eql({height: {top: 22000, floor: 914}, hiked: :hiked, list: 1})
+  end
+
+  it 'finds a list of mountains when given an array of filters, a user, and sort instructions' do
+    expect(Mountain.get_mountains(["hiked", "three-k", list.id], user, "height", "desc").first).to eql(mountain)
+  end
+
   it 'has an alphabetical name for ordering purposes' do
     mountain = FactoryGirl.create(:mountain, name: "Mount Smores")
     expect(mountain.alphabetical_name).to eql("SmoresMount")
