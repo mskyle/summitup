@@ -4,6 +4,7 @@ describe Mountain do
   let!(:trip) { FactoryGirl.create(:trip) }
   let!(:mountain) { FactoryGirl.create(:mountain, height: 500) }
   let!(:mountain2) { FactoryGirl.create(:mountain, height: 1500) }
+  let!(:mountain3) { FactoryGirl.create(:mountain, height: 500) }
   let!(:user) { FactoryGirl.create(:user) }
   let!(:trip_participation) { FactoryGirl.create(:trip_participation, trip: trip, user: user)
   }
@@ -27,24 +28,45 @@ describe Mountain do
   it { should have_many(:lists) }
 
   it 'finds all the mountains a user has already hiked' do
-    expect(Mountain.filter(:hiked, user).include?(mountain)).to eql(true) 
-    expect(Mountain.filter(:hiked, user).include?(mountain2)).to eql(false)     
+    expect(Mountain.filter({hiked: :hiked}, user).include?(mountain)).to eql(true) 
+    expect(Mountain.filter({hiked: :hiked}, user).include?(mountain2)).to eql(false)     
   end
 
   it 'finds all the mountains a user has not yet hiked' do
-    expect(Mountain.filter(:unhiked, user).include?(mountain)).to eql(false)
-    expect(Mountain.filter(:unhiked, user).include?(mountain2)).to eql(true)
+    expect(Mountain.filter({hiked: :unhiked}, user).include?(mountain)).to eql(false)
+    expect(Mountain.filter({hiked: :unhiked}, user).include?(mountain2)).to eql(true)
   end
 
   it 'finds all the mountains from a mountain list' do
-    expect(Mountain.filter(list, user).include?(mountain)).to eql(true)
-    expect(Mountain.filter(list, user).include?(mountain2)).to eql(false)
+    expect(Mountain.filter({list: list.id}, user).include?(mountain)).to eql(true)
+    expect(Mountain.filter({list: list.id}, user).include?(mountain2)).to eql(false)
   end
 
   it 'finds all the mountains within a certain height range' do
-    expect(Mountain.filter({top: 1000, floor: 400}, user).include?(mountain)).to eql(false)
-    expect(Mountain.filter({top: 1000, floor: 400}, user).include?(mountain2)).to eql(true)
-    expect(Mountain.filter({top: 2000, floor: 1000}, user).include?(mountain)).to eql(true)
+    expect(Mountain.filter({height: {top: 1000, floor: 0}}, user).include?(mountain)).to eql(true)
+    expect(Mountain.filter({height: {top: 1000, floor: 400}}, user).include?(mountain2)).to eql(false)
+    expect(Mountain.filter({height: {top: 2000, floor: 1000}}, user).include?(mountain2)).to eql(true)
+  end
+
+  it 'combines different filters' do 
+    filter_hash = {
+      height: {top: 1000, floor: 0},
+      list: list.id,
+      hiked: :hiked
+    }
+    expect(Mountain.filter(filter_hash, user).include?(mountain)).to eql(true)
+    expect(Mountain.filter(filter_hash, user).include?(mountain2)).to eql(false)
+    expect(Mountain.filter(filter_hash, user).include?(mountain3)).to eql(false)
+  end
+
+  it 'combines different filters' do 
+    filter_hash = {
+      list: list.id,
+      hiked: :hiked
+    }
+    expect(Mountain.filter(filter_hash, user).include?(mountain)).to eql(true)
+    expect(Mountain.filter(filter_hash, user).include?(mountain2)).to eql(false)
+    expect(Mountain.filter(filter_hash, user).include?(mountain3)).to eql(false)
   end
 
   it 'has an alphabetical name for ordering purposes' do

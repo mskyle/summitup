@@ -24,34 +24,38 @@ class Mountain < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
 
-  # example filter_hash: 
-  filter_hash = {
-    height: {
-      top: nil,
-      floor: nil
-    },
-    hiked: true,
-    list: 1
-  }
-
   def self.filter(filter_hash, user)
-    query_start = "SELECT mountains.* FROM mountains"
-    hike_query = "INNER JOIN trip_mountains ON mountains.id = trip_mountains.mountain_id 
-    INNER JOIN trips ON trip_mountains.trip_id = trips.id 
-    INNER JOIN trip_participations ON trips.id = trip_participations.trip_id 
-    WHERE trip_participations.user_id = #{user.id}"
-    if filter == :hiked
-      self.find_by_sql("#{query_start} #{hike_query}")
-    elsif filter == :unhiked
-      self.find_by_sql("#{query_start} EXCEPT #{query_start} #{hike_query}")
-    elsif filter.class == List
-      self.find_by_sql("#{query_start} INNER JOIN mountain_lists ON mountains.id = mountain_lists.mountain_id 
-        WHERE mountain_lists.list_id = #{filter.id}")
-    elsif filter
+    query_start = "SELECT mountains.* FROM mountains "
+    query = query_start
+
+    if filter_hash.has_key?(:hiked)
+      hike_query = "INNER JOIN trip_mountains ON mountains.id = trip_mountains.mountain_id " + 
+        "INNER JOIN trips ON trip_mountains.trip_id = trips.id " +
+        "INNER JOIN trip_participations ON trips.id = trip_participations.trip_id " +
+        "WHERE trip_participations.user_id = #{user.id} "
+      if filter_hash[:hiked] == :hiked
+        query += hike_query
+      elsif filter_hash[:hiked] == :unhiked
+        query += " EXCEPT SELECT mountains.* FROM mountains " + hike_query
+      end
+      if filter_hash.has_key?(:list)
+        query += " INTERSECT " + query_start
+      end
     end
+    if filter_hash.has_key?(:list)
+      list_query = "INNER JOIN mountain_lists ON mountains.id = mountain_lists.mountain_id WHERE mountain_lists.list_id = #{filter_hash[:list]}"
+      query += list_query
+    end
+    if filter_hash.has_key?(:height)
+      height_query = "height < #{filter_hash[:height][:top]} AND height > #{filter_hash[:height][:floor]}"
+      if query.include?("WHERE")
+        query += " AND " + height_query
+      else
+        query += " WHERE " + height_query
+      end
+    end
+    Mountain.find_by_sql(query)
   end
-
-
 
   def height_in_feet
     in_feet(height)
