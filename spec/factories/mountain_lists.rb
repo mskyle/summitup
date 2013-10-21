@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :mountain_list do
-    belongs_to ""
-    belongs_to ""
+    mountain
+    list
   end
 end

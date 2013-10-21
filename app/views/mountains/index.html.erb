@@ -4,12 +4,12 @@
       <li class="list-group-item">
         <div class="panel panel-default">
           <div class="panel-body">
-            checklists
+            Checklists 
           </div>
           <div class="panel-footer">  
             <div class="btn-group filter heights">
               <!-- this is wrong, right? -->   
-              <% List.all.each do |list| %>            
+              <% @lists.each do |list| %>            
                 <button type="button" class="btn btn-default" id=<%=list.id%>><%=list.title%></button>
               <% end %>
             </div>
@@ -19,7 +19,7 @@
       <li class="list-group-item">
         <div class="panel panel-default">
           <div class="panel-body">
-            Height <a class="sort sort_column desc" id="height" href=" #">(sort by)</a> <a class="units">(meters/feet)</a>
+            Height <a class="sort sort_column desc" id="height" href="/mountains/?sort=height">(sort by)</a> <a class="units">(meters/feet)</a>
           </div>
           <div class="panel-footer">
             <div class="btn-group filter heights">
@@ -49,7 +49,7 @@
       <li class="list-group-item">
         <div class="panel panel-default">
           <div class="panel-body">
-            Name <a class="sort" id="name" href=" #">(sort by)</a>
+            Name <a class="sort" id="name" href="/mountains/?sort=name">(sort by)</a>
           </div>
           <div class="panel-footer">Panel footer</div>
         </div>

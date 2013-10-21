@@ -45,7 +45,7 @@ feature 'mountain listings', %q{
     (hundred_footer.name).should appear_before(thousand_footer.name)
   end
 
-    scenario 'user views list of mountains sorted by name, descending' do
+  scenario 'user views list of mountains sorted by name, descending' do
     a_mountain = FactoryGirl.create(:mountain, name: "Abraham")
     b_mountain = FactoryGirl.create(:mountain, name: "Bigelow")
     c_mountain = FactoryGirl.create(:mountain, name: "Cannon")
@@ -64,10 +64,8 @@ feature 'mountain listings', %q{
 
 
     visit mountains_path
-    within_fieldset do
-      click_on("name")
-      click_on("name")
-    end
+    click_on("name")
+    click_on("name")
 
     (a_mountain.name).should appear_before(b_mountain.name)
     (b_mountain.name).should appear_before(c_mountain.name)

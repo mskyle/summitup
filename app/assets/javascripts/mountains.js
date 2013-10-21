@@ -14,6 +14,8 @@ $( document ).ready(function() {
   });
 
   $( ".filter button" ).click(function(e) {
+    e.preventDefault();
+    
       $( this ).toggleClass("active");
       getList(findSortColumn(), findSortDirection(), findFilters());
   });
