@@ -43,3 +43,24 @@ body {
 .sortable th .desc {
   background-image: url(/images/down_arrow.gif);
 }
+
+.bottom-links {
+  background:rgb(230,230,230);
+  margin:0;
+  width:100%;
+  height:60px;
+  padding-top:20px; 
+}
+.content-container {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  background: aliceblue;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.full-width-container {
+  background: aliceblue;
+  margin-bottom: 20px;
+}
