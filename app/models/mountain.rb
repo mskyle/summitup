@@ -89,7 +89,7 @@ class Mountain < ActiveRecord::Base
     if filter_array.include?("four-k")
       filter_hash[:height][:top] = 22000
     end
-    filter_array.each { |filter| filter_hash[:list] = filter if filter.is_a?(Integer) }
+    filter_array.each { |filter| filter_hash[:list] = filter if filter.to_i.to_s == filter }
     filter_hash
   end
 
