@@ -1,7 +1,18 @@
-<div class="jumbotron">
-  <div class="container">
-    <h1>Let's hike this thing.</h1>
-    <p>SummitUp is a place where social climbers like you plan hikes, share hike photos and reports, and keep track of their hiking goals. Join us and see what the fun's about!</p>
-    <p><a class="btn btn-primary btn-lg">Join us and get hiking...</a></p>
+<% if user_signed_in? %>
+  <div class="row">
+    <div class="col-md-12">
+      <%= content_tag "div", id: "index-map", data: {url: current_user.mountains.limit(10), center: current_user.mountains.last } do %>
+      <% end %>
+    </div>
   </div>
-</div>
+<% else %>
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Let's hike this thing.</h1>
+      <p>SummitUp is a place where social climbers like you plan hikes, share hike photos and reports, and keep track of their hiking goals. Join us and see what the fun's about!</p>
+      <p><a class="btn btn-primary btn-lg">Join us and get hiking...</a></p>
+    </div>
+  </div>
+<% end %>
+
+

@@ -1,6 +1,7 @@
 //import original twitter bootstrap here
 @import "twitter/bootstrap";
 // @import "variables";
+// = require leaflet
 
 body { 
   background: url('sbeam-flickr.jpg') no-repeat center center fixed;
@@ -63,4 +64,10 @@ body {
 .full-width-container {
   background: aliceblue;
   margin-bottom: 20px;
+}
+
+#index-map {
+  height: 300px;
+  border-top: 10px solid white; 
+  border-bottom: 10px solid white; 
 }

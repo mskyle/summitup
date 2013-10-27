@@ -61,6 +61,8 @@ gem 'carrierwave'
 gem 'rmagick'
 gem 'fog'
 
+gem 'leaflet-rails'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
