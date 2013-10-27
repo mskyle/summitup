@@ -1,8 +1,8 @@
 <% if user_signed_in? %>
   <div class="row">
     <div class="col-md-12">
-      <div id="four-map">
-      </div>
+      <%= content_tag "div", id: "index-map", data: {url: current_user.mountains.limit(10), center: current_user.mountains.last } do %>
+      <% end %>
     </div>
   </div>
 <% else %>
@@ -14,4 +14,5 @@
     </div>
   </div>
 <% end %>
+
 
