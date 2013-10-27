@@ -1,5 +1,7 @@
 class WelcomeController < ApplicationController
   def index
-    @user_trips = current_user.trips 
+    if user_signed_in
+      @user_trips = current_user.trips 
+    end
   end 
 end
