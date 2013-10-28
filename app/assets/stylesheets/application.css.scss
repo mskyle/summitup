@@ -19,6 +19,7 @@ body {
      float: none;
      margin-left: auto;
      margin-right: auto;
+     padding: 0;
 }
 
 .footer-nav {
@@ -70,4 +71,8 @@ body {
   height: 300px;
   border-top: 10px solid white; 
   border-bottom: 10px solid white; 
+}
+
+#mountain-map {
+  height: 300px;
 }
