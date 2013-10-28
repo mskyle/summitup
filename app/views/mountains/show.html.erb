@@ -6,13 +6,16 @@
       <% else %>
         <%= image_tag('generic-mt.png', width: "100%") %>
       <% end %>
-      <%= @mountain.name %>
+      <p><%= @mountain.name %></p>
 
-      <%= @mountain.height %> meters
+      <p><%= @mountain.height %> meters</p>
 
-      <%= @mountain.notes %>
+      <p><%= @mountain.notes %></p>
 
-      <%= @mountain.latitude %>, <%= @mountain.longitude %>
+      <%= content_tag "div", id: "mountain-map", data: {url: @mountain } do %>
+      <% end %>
+
+      <p><%= @mountain.latitude %>, <%= @mountain.longitude %></p>
     </div>
     <div class="col-md-8">
       <% if @current_user_trips.present? %>
