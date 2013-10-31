@@ -51,7 +51,7 @@
         <strong>Mountains:</strong>
         <ul>
         <% @trip.mountains.each do |mountain| %>
-          <li><%= mountain.name %></li>
+          <li><%= link_to mountain.name, mountain %></li>
         <% end %>
         </ul>
       </p>

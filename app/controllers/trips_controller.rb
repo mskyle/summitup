@@ -4,7 +4,11 @@ class TripsController < ApplicationController
   end
 
   def index
-    @trips = Trip.order(:date).page params[:page]
+    if user_signed_in?  
+      @trips = current_user.trips.order(:date).page params[:page]
+    else
+      @trips = Trip.order(:date).page params[:page]
+    end
   end
 
   def create
