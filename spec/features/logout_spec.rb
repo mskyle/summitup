@@ -23,9 +23,7 @@ feature 'signed-in user logs out', %q{
 
   scenario 'user tries to record hike without logging in' do
     visit new_trip_path
- 
-    expect(page).to have_no_content "date"
-    expect(page).to have_content "sign up or log in"
+    expect(page).to have_content "Not authorized"
   end
 
 end

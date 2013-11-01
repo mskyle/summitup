@@ -16,7 +16,7 @@ feature 'a user views a mountain', %Q{
   let (:trip) { FactoryGirl.create(:trip) }
   let (:trip_participation) { FactoryGirl.create(:trip_participation, trip_id: trip.id, user_id: user.id) }
   let (:trip_mountain) { FactoryGirl.create(:trip_mountain, trip_id: trip.id, mountain_id: mountain.id) }
-
+  let (:admin) { FactoryGirl.build(:user, admin: true) }
   scenario 'visiting a mountain page when not logged in' do 
     visit mountain_path(mountain)
     expect(page).to have_content(mountain.name, mountain.height, mountain.notes, mountain.latitude, mountain.longitude)
@@ -53,9 +53,9 @@ feature 'a user views a mountain', %Q{
     expect(page).to have_no_content(trip2.title)
   end
 
-  scenario 'there is a link to the mountain edit page' do
-    login_user(user)
-    visit mountain_path(mountain)
+  scenario 'there is a link to the mountain edit page for admins' do
+    login_user(admin)
+    visit mountain_path(mountain)    
     click_on "Edit this mountain"
     expect(page).to have_content("Edit mountain", "Image")
   end

@@ -12,6 +12,7 @@ feature 'a user views a hike', %q{
   let(:trip) { FactoryGirl.create(:trip, users: [user], mountains: [mountain]) }
 
   scenario 'a user views a hike' do 
+    login_user(user)
     visit trip_path(trip)
     expect(page).to have_content(trip.date, trip.title, trip.distance, trip.users.first, trip.mountains.first)
   end

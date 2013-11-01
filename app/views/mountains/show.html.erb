@@ -25,7 +25,7 @@
       <% else %>
         Have you hiked this mountain yet? <%= link_to "Record it!", new_trip_path %>
       <% end %>
-      <% if user_signed_in? %>
+      <% if user_signed_in? && @current_user.admin? %>
         <%= link_to "Edit this mountain", edit_mountain_path(@mountain) %>
       <% end %>
     </div>
