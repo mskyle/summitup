@@ -16,7 +16,8 @@ feature 'a user views a mountain', %Q{
   let (:trip) { FactoryGirl.create(:trip) }
   let (:trip_participation) { FactoryGirl.create(:trip_participation, trip_id: trip.id, user_id: user.id) }
   let (:trip_mountain) { FactoryGirl.create(:trip_mountain, trip_id: trip.id, mountain_id: mountain.id) }
-  let (:admin) { FactoryGirl.build(:user, admin: true) }
+  let (:admin) { FactoryGirl.create(:user, admin: true) }
+
   scenario 'visiting a mountain page when not logged in' do 
     visit mountain_path(mountain)
     expect(page).to have_content(mountain.name, mountain.height, mountain.notes, mountain.latitude, mountain.longitude)
