@@ -28,8 +28,8 @@ describe Mountain do
   it { should have_many(:lists) }
 
   it 'finds all the mountains a user has already hiked' do
-    expect(Mountain.filter({hiked: :hiked}, user).include?(mountain)).to eql(true) 
-    expect(Mountain.filter({hiked: :hiked}, user).include?(mountain2)).to eql(false)     
+    expect(Mountain.filter({hiked: :is_hiked}, user).include?(mountain)).to eql(true) 
+    expect(Mountain.filter({hiked: :is_hiked}, user).include?(mountain2)).to eql(false)     
   end
 
   it 'finds all the mountains a user has not yet hiked' do
@@ -70,7 +70,7 @@ describe Mountain do
   end
 
   it 'creates a hash of filters from a list of filter names' do
-    expect(Mountain.generate_filter_hash(["hiked", "four-k", "three-four-k", 1])).to eql({height: {top: 22000, floor: 914}, hiked: :hiked, list: 1})
+    expect(Mountain.generate_filter_hash(["hiked", "four-k", "three-four-k", "1"])).to eql({height: {top: 22000, floor: 914}, hiked: :is_hiked, list: "1"})
   end
 
   it 'finds a list of mountains when given an array of filters, a user, and sort instructions' do
