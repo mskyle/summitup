@@ -7,8 +7,11 @@ RSpec::Matchers.define :permit do |*args|
 end
 
 describe Permission do 
-  let(:user) { FactoryGirl.build(:user) }
-  let(:admin) { FactoryGirl.build(:user, admin: true) }
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:admin) { FactoryGirl.create(:user, admin: true) }
+  let!(:user_trip) { FactoryGirl.create(:trip, users: [user]) }
+  let!(:other_trip) { FactoryGirl.create(:trip) }
+  
   describe "as guest" do
     subject { Permission.new(nil) }
     it { should permit("welcome", "index") }
@@ -38,13 +41,17 @@ describe Permission do
     it { should_not permit("mountains", "create") }
     it { should_not permit("mountains", "update") }
     it { should_not permit("mountains", "destroy") }
-    it { should permit("trips", "show") }
-    it { should permit("trips", "edit") }
+    it { should_not permit("trips", "show", other_trip) }
+    it { should_not permit("trips", "edit", other_trip) }   
     it { should permit("trips", "new") }
+    it { should permit("trips", "show", user_trip) }
+    it { should permit("trips", "edit", user_trip) }  
     it { should permit("trips", "index") }
     it { should permit("trips", "create") }
-    it { should permit("trips", "update") }
-    it { should permit("trips", "destroy") }
+    it { should permit("trips", "update", user_trip) }
+    it { should permit("trips", "destroy", user_trip) }
+    it { should_not permit("trips", "update", other_trip) }
+    it { should_not permit("trips", "destroy", other_trip) }
   end
 
   describe "as admin" do

@@ -23,7 +23,6 @@ feature 'a user views her profile', %Q{
     original_name = "#{user.first_name} #{user.last_name}"
     visit user_path(user)
     click_on "Edit"
-
     fill_in "First name", with: "Julie"
     fill_in "Last name", with: "Horncastle"
     fill_in "Current password", with: user.password

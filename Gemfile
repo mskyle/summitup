@@ -45,6 +45,7 @@ group :test, :development do
   gem 'pry-rails'
   gem 'timecop'
   gem 'orderly'
+  gem 'quiet_assets'
 end
 
 gem 'simple_form', github: 'plataformatec/simple_form'

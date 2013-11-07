@@ -7,9 +7,9 @@ feature 'a user views a hike', %q{
   } do
   # Acceptance Criteria:
   # * I can see the stored information about the hike
-  let(:user) { FactoryGirl.create(:user) }
-  let(:mountain) { FactoryGirl.create(:mountain) }
-  let(:trip) { FactoryGirl.create(:trip, users: [user], mountains: [mountain]) }
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:mountain) { FactoryGirl.create(:mountain) }
+  let!(:trip) { FactoryGirl.create(:trip, users: [user], mountains: [mountain]) }
 
   scenario 'a user views a hike' do 
     login_user(user)
