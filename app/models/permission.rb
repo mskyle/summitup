@@ -8,7 +8,9 @@ class Permission
     if user
       allow :users, [:edit, :update, :show]
       allow :trips, [:new, :create, :index] 
-      allow :trips, [:edit, :update, :show, :destroy] { |trip| binding.pry user.trips.include?(trip) }
+      allow :trips, [:edit, :update, :show, :destroy] do |trip|
+        user.trips.include?(trip)
+      end
       allow_all if user.admin?
     end
   end

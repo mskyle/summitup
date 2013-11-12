@@ -47,4 +47,8 @@ class TripsController < ApplicationController
       :hike_awesomeness, :chronic_date, :image, mountain_ids:[], user_ids:[])
   end
 
+  def current_resource
+    @current_resource ||= Trip.find(params[:id]) if params[:id]
+  end
+
 end
