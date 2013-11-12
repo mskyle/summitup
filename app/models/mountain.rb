@@ -30,35 +30,28 @@ class Mountain < ActiveRecord::Base
   end
 
   def self.filter(filter_hash, user = nil, sort_column = "height", sort_direction = "desc")
-    query_start = "SELECT mountains.* FROM mountains "
-    query = query_start
+    select = "SELECT mountains.* FROM mountains "
+    query_array = []
 
     if filter_hash.has_key?(:hiked)
       hike_query = "INNER JOIN trip_mountains ON mountains.id = trip_mountains.mountain_id " + 
         "INNER JOIN trips ON trip_mountains.trip_id = trips.id " +
         "INNER JOIN trip_participations ON trips.id = trip_participations.trip_id " +
         "WHERE trip_participations.user_id = #{user.id} "
-      if filter_hash[:hiked] == :hiked
-        query += hike_query
+      if filter_hash[:hiked] == :is_hiked
+        query_array << (select + hike_query)
       elsif filter_hash[:hiked] == :unhiked
-        query += " EXCEPT SELECT mountains.* FROM mountains " + hike_query
-      end
-      if filter_hash.has_key?(:list)
-        query += " INTERSECT " + query_start
+        query_array << (select + "EXCEPT " + select + hike_query)
       end
     end
     if filter_hash.has_key?(:list)
-      list_query = "INNER JOIN mountain_lists ON mountains.id = mountain_lists.mountain_id WHERE mountain_lists.list_id = #{filter_hash[:list]}"
-      query += list_query
+      query_array << (select + "INNER JOIN mountain_lists ON mountains.id = mountain_lists.mountain_id WHERE mountain_lists.list_id = #{filter_hash[:list]}")
     end
     if filter_hash.has_key?(:height)
-      height_query = "height < #{filter_hash[:height][:top]} AND height > #{filter_hash[:height][:floor]}"
-      if query.include?("WHERE")
-        query += " AND " + height_query
-      else
-        query += " WHERE " + height_query
-      end
+      query_array << (select + " WHERE height < #{filter_hash[:height][:top]} AND height > #{filter_hash[:height][:floor]}")
     end
+    query = query_array.map { |x| "(#{x})" } .join(" INTERSECT ")
+    query = select if query.empty?
     query += " ORDER BY #{sort_column} #{sort_direction}"
     Mountain.find_by_sql(query)
   end
@@ -66,7 +59,7 @@ class Mountain < ActiveRecord::Base
   def self.generate_filter_hash(filter_array)
     filter_hash = { height: { top: 22000, floor: 0} }
     if filter_array.include?("hiked") 
-      filter_hash[:hiked] = :hiked
+      filter_hash[:hiked] = :is_hiked
     end
     if filter_array.include?("unhiked")
       filter_hash[:hiked] = :unhiked
